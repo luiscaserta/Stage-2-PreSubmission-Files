@@ -10,8 +10,20 @@ hard_answers = ["Quebec, Canada", "Gabrielle", "Emilie", "Montreal"]
 
 def game_level(level):
   input = raw_input("Choose level of game to play (easy, medium, hard): ")
-  tries = raw_input("Please enter the number of guesses you would like for each blank: ")
-  tries = int(tries)
+  print "You have chosen level " + input + "!!"
+  print 
+  while True:
+    try:
+      tries = int(raw_input("How many guesses would you like for each problem?  Please enter a positive integer: "))
+    except ValueError:
+      print "Sorry, I didn't understand. Input must be a positive integer"
+      continue
+
+    if tries <= 0:
+      print "Sorry, your response must not be negative!!"
+      continue
+    else:
+      break
   if input == "easy" or input == "Easy":
     test = easy_test
     answer = easy_answers
@@ -47,10 +59,11 @@ def play_game (test, answer, blank, tries):
       if i == len(answer):
         print "Nice work! You've correctly filled in the blanks and won the game!"
     else:
-       print "Sorry - that is incorrect. Please try again!! "
        chances = chances + 1
        if chances == tries:
          print "Sorry! You did not provide the correct answer. Thanks for playing."
+       else:
+         print "Sorry - that is incorrect. Please try again!! "
 
 
 game_level(raw_input)
