@@ -1,5 +1,5 @@
-#Here is my tests and answers for all three game levelsd
-#blanks are the fill in the blanks that the user must replace, and it is the same for each test
+#Here is my tests and answers for all three game levels.
+#Blanks are the fill in the blanks that the user must replace, and it is the same for each test.
 easy_test = "__1__ are lines of code that are ignored by the computer and exist as a means to make notes to yourself \
 or other programmers about the code. Adding comments to your code can help __2__ your code when things go wrong by \
 comparing what the comment claims the code should do with what it actually does. In Python, you can make a comment \
@@ -36,11 +36,10 @@ hard_answers = ["anything", "mutation", "square brackets", "aliasing", ]
 
 blanks = ["__1__", "__2__", "__3__", "__4__"]
 
-#This is my function to have the user determine what level he wants to play.  I use the user's raw input answer to select the
-#corresponding test and answer set
-def game_level(level):
-  input = raw_input("Choose level of game to play (easy, medium, hard): ")
-  print "You have chosen level " + input + "!!"
+def number_of_tries(tries):
+  '''This is the function to determine the number of guesses the user want to make for each anser.
+  input is a user defined integer
+  output is the user defined integer'''
   #This is my code to validate the input of the user.  It only accepts a positive integer.  I thought of this because I kept getting
   #an occasional error after I was asking for number of times the user wanted to guess the correct answer.  I didn't panic, and "eventually"
   #I was able to figure it out.  I figured this out by searching on the internet, and I am most proud of this little bit of code!! =)
@@ -55,37 +54,42 @@ def game_level(level):
       continue
     else:
       break
-  #I allowed user to input in two different ways by using an "or" statement.  I had some difficulties at first, but finally
-  #it out.  I had to include the variable twice and not once.  Ex. if input == "easy" or "Easy", does not work.  It makes sense to me,
-  #but going back to what we learned previously, the computer does not make assumptions.  You must be specific with all instructions.
-  if input == "easy" or input == "Easy": 
-    test = easy_test
-    answer = easy_answers
-    blank = blanks
-    play_game(test, answer, blank, tries)
-  elif input == "medium" or input == "Medium":
-    test = medium_test
-    answer = medium_answers
-    blank = blanks
-    play_game(test, answer, blank, tries)
-  elif input == "hard" or input == "Hard":
-    test = hard_test
-    answer = hard_answers
-    blank = blanks
-    play_game(test, answer, blank, tries)
+  return tries
+
+
+
+def game_level(level):
+  '''This is my function to have the user determine what level he wants to play.  I use the user's raw input answer to select the
+  corresponding test and answer set.
+  inputs are.....
+  outputs are....'''
+  input = raw_input("Choose level of game to play (easy, medium, hard): ")
+  print "You have chosen level " + input + "!!"
+  
+  number_of_tries(raw_input)
+  
+  if input in ["easy","Easy"]: 
+    play_game(easy_test, easy_answers, blanks, tries)
+  elif input in["medium", "Medium"]:
+    play_game(medium_test, medium_answers, blanks, tries)
+  elif input in ["hard", "Hard"]:
+    play_game(hard_test, hard_answers, blanks, tries)
   else:
     print "That is not a valid option!!"
     return game_level(level)
 
 def play_game (test, answer, blank, tries):
+  '''This is my function using simple while loop that sets the conditions for user to answer the fill in the blank test in accordance their own criteria.
+  The variable i represents the blanks that must be filled in each test.  Once all blanks filled correctly, while loop ends.
+  Chances is the variable that starts at 0 and must be less than tries to allow the game to continue.  If equal to user input tries
+  it will end the game according to the instructions.
+  inputs are......
+  outputs are..........'''
   i = 0
   chances = 0
 
   print test
-#a simple while loop that sets the conditions for user to answer the fill in the blank test in accordance the own criteria
-#the variable i represents the blanks that must be filled in each test.  Once all blanks filled correctly, while loop ends
-#chances is the variable that starts at 0 and must be less than tries to allow the game to continue.  If equal to user input tries
-#it will end the game according to the instructions.
+
   while (i < len(answer)) and (chances < tries):
     guess = raw_input("What is your correct answer for " + blank[i] + "? ")
     if guess == answer[i]:
